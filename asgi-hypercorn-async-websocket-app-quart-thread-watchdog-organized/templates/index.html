@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchdog Notifications</title>
+</head>
+<body>
+    <h1>Fichier modifié :</h1>
+    <ul id="log"></ul>
+
+    <script>
+        var ws = new WebSocket("ws://" + window.location.host + "/ws");
+
+        ws.onmessage = function(event) {
+            var log = document.getElementById('log');
+            var newItem = document.createElement('li');
+            newItem.textContent = event.data;
+            log.appendChild(newItem);
+        };
+
+        ws.onclose = function() {
+            console.log("WebSocket connection closed");
+        };
+    </script>
+</body>
+</html>
