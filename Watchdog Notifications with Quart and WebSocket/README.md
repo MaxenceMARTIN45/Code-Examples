@@ -1,4 +1,4 @@
-# Watchdog Notifications with Quart and WebSocket (One File)
+# Watchdog Notifications with Quart and WebSocket
 
 This project uses Quart, an asynchronous micro-framework for Python, in conjunction with WebSocket to provide real-time notifications when files are modified in a monitored directory. It also utilizes Watchdog for filesystem monitoring and Hypercorn to serve the Quart application.
 
