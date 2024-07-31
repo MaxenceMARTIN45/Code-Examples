@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchdog Notifications</title>
+</head>
+<body>
+    <h1>Fichiers modifiés :</h1>
+    <ul id="log-modify"></ul>
+    
+    <h1>Fichiers créés :</h1>
+    <ul id="log-create"></ul>
+
+    <h1>Fichiers supprimés :</h1>
+    <ul id="log-delete"></ul>
+
+    <script>
+        function setupWebSocket(eventType, logElementId) {
+            var ws = new WebSocket("ws://" + window.location.host + "/ws/" + eventType);
+            ws.onmessage = function(event) {
+                var log = document.getElementById(logElementId);
+                var newItem = document.createElement('li');
+                newItem.textContent = event.data;
+                log.appendChild(newItem);
+            };
+
+            ws.onclose = function() {
+                console.log("WebSocket connection closed");
+            };
+        }
+
+        setupWebSocket("create", "log-create");
+        setupWebSocket("modify", "log-modify");
+        setupWebSocket("delete", "log-delete");
+    </script>
+</body>
+</html>
